@@ -1,0 +1,30 @@
+.payment-details {
+  background: var(--ion-color-light);
+  border-radius: 8px;
+  padding: 12px;
+  margin: 12px 0;
+
+  p {
+    margin: 2px 0;
+  }
+}
+
+.amount-due {
+  font-weight: 600;
+  margin: 8px 0 16px;
+}
+
+.success-box {
+  text-align: center;
+  padding: 24px 8px;
+
+  h2 {
+    color: var(--ion-color-success);
+  }
+}
+
+.field-error {
+  display: block;
+  font-size: 0.8rem;
+  padding: 2px 16px 8px;
+}

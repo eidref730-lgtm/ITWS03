@@ -1,0 +1,11 @@
+@if (status() === 'approved') {
+  <ion-badge color="success">Approved</ion-badge>
+} @else if (status() === 'pending') {
+  <ion-badge color="warning">Pending</ion-badge>
+} @else if (status() === 'rejected') {
+  <ion-badge color="danger">Rejected</ion-badge>
+} @else if (status() === 'completed') {
+  <ion-badge color="tertiary">Completed</ion-badge>
+} @else {
+  <ion-badge color="medium">Cancelled</ion-badge>
+}

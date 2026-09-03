@@ -1,0 +1,20 @@
+<ion-item lines="full" class="reservation-item">
+  <ion-label>
+    <h2>{{ reservation().facilityName }}</h2>
+    <p>{{ reservation().eventDate }} &nbsp;•&nbsp; {{ formatTime(reservation().startTime) }} - {{ formatTime(reservation().endTime) }}</p>
+    <p>{{ reservation().purpose }}</p>
+
+    @if (reservation().status === 'approved' || reservation().status === 'completed') {
+      <p class="payment-line">
+        Paid ₱{{ reservation().amountPaid }} of ₱{{ reservation().totalDue }}
+        @if (reservation().amountPaid < reservation().totalDue) {
+          <ion-note color="danger"> — balance due</ion-note>
+        } @else {
+          <ion-note color="success"> — fully paid</ion-note>
+        }
+      </p>
+    }
+  </ion-label>
+
+  <app-status-badge [status]="reservation().status" slot="end"></app-status-badge>
+</ion-item>

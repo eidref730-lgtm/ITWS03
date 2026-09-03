@@ -1,0 +1,18 @@
+<ion-card class="facility-card">
+  <div class="facility-banner" [style.background]="bannerColor()">
+    <h2>{{ facility().name }}</h2>
+  </div>
+
+  <ion-card-content>
+    <p>{{ facility().description }}</p>
+
+    <p class="pricing">
+      Down payment: ₱{{ facility().downPayment }} &nbsp;•&nbsp;
+      Full payment: ₱{{ facility().fullPayment }}
+    </p>
+
+    <ion-button expand="block" (click)="onReserve()">
+      Reserve This Facility
+    </ion-button>
+  </ion-card-content>
+</ion-card>

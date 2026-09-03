@@ -1,0 +1,144 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/facilities"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Reserve Facility</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  @if (!facility()) {
+    <p>No facility selected. Please go back and pick a facility.</p>
+  } @else if (submitted()) {
+    <div class="success-box">
+      <h2>Request Submitted!</h2>
+      <p>
+        Your reservation for {{ facility()!.name }} has been sent for admin
+        approval. You'll see it under My Reservations with a "Pending" status.
+      </p>
+      <ion-button expand="block" (click)="goToMyReservations()">
+        View My Reservations
+      </ion-button>
+    </div>
+  } @else {
+    <h2>{{ facility()!.name }}</h2>
+    <p>{{ facility()!.description }}</p>
+
+    <ion-item>
+      <ion-label position="stacked">Event Date</ion-label>
+      <ion-input type="date" [(ngModel)]="eventDate"></ion-input>
+    </ion-item>
+    @if (eventDateError()) {
+      <ion-note color="danger" class="field-error">{{ eventDateError() }}</ion-note>
+    }
+
+    <ion-item>
+      <ion-label position="stacked">Start Time</ion-label>
+      <ion-input type="time" [(ngModel)]="startTime"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">End Time</ion-label>
+      <ion-input type="time" [(ngModel)]="endTime"></ion-input>
+    </ion-item>
+    @if (timeError()) {
+      <ion-note color="danger" class="field-error">{{ timeError() }}</ion-note>
+    }
+
+    <ion-item>
+      <ion-label position="stacked">Purpose</ion-label>
+      <ion-textarea
+        rows="2"
+        placeholder="e.g. Birthday party"
+        [(ngModel)]="purpose">
+      </ion-textarea>
+    </ion-item>
+    @if (purposeError()) {
+      <ion-note color="danger" class="field-error">{{ purposeError() }}</ion-note>
+    }
+
+    <ion-item>
+      <ion-label position="stacked">Payment Type</ion-label>
+      <ion-select [(ngModel)]="paymentType" interface="popover">
+        <ion-select-option value="downpayment">
+          Down Payment (₱{{ facility()!.downPayment }})
+        </ion-select-option>
+        <ion-select-option value="full">
+          Full Payment (₱{{ facility()!.fullPayment }})
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Payment Method</ion-label>
+    </ion-item>
+    <ion-radio-group [(ngModel)]="paymentMethod">
+      <ion-item>
+        <ion-radio value="gcash" justify="start" labelPlacement="end">
+          GCash
+        </ion-radio>
+      </ion-item>
+      <ion-item>
+        <ion-radio value="bank" justify="start" labelPlacement="end">
+          Bank Transfer
+        </ion-radio>
+      </ion-item>
+    </ion-radio-group>
+
+    @if (paymentMethod === 'gcash') {
+      <div class="payment-details">
+        <p><strong>Send GCash payment to:</strong></p>
+        <p>Name: John Eidref C. Buenaventura</p>
+        <p>Number: 09766157165</p>
+      </div>
+    } @else {
+      <div class="payment-details">
+        <p><strong>Bank transfer details:</strong></p>
+        <p>Please coordinate with the admin office for bank account details.</p>
+      </div>
+    }
+
+    <p class="amount-due">Amount to pay now: ₱{{ amountDue() }}</p>
+
+    <ion-item>
+      <ion-label position="stacked">Reference No.</ion-label>
+      @if (paymentMethod === 'gcash') {
+        <ion-input
+          placeholder="e.g. 1234567890123"
+          inputmode="numeric"
+          maxlength="13"
+          [(ngModel)]="referenceNo">
+        </ion-input>
+      } @else {
+        <ion-input
+          placeholder="e.g. REF123456"
+          [(ngModel)]="referenceNo">
+        </ion-input>
+      }
+    </ion-item>
+    @if (referenceNoError()) {
+      <ion-note color="danger" class="field-error">{{ referenceNoError() }}</ion-note>
+    }
+
+    <ion-item>
+      <ion-label position="stacked">Proof of Payment (file name)</ion-label>
+      <ion-input
+        placeholder="e.g. gcash_receipt.jpg"
+        [(ngModel)]="proofFileName">
+      </ion-input>
+      <ion-note>Prototype only — actual file upload is not wired up.</ion-note>
+    </ion-item>
+    @if (proofFileError()) {
+      <ion-note color="danger" class="field-error">{{ proofFileError() }}</ion-note>
+    }
+
+    <ion-button
+      expand="block"
+      class="ion-margin-top"
+      [disabled]="!isFormValid()"
+      (click)="submitReservation()">
+      Submit Reservation
+    </ion-button>
+  }
+</ion-content>

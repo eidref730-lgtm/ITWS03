@@ -1,0 +1,19 @@
+.facility-card {
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.facility-banner {
+  padding: 24px 16px;
+  color: #ffffff;
+
+  h2 {
+    margin: 0;
+    font-weight: 700;
+  }
+}
+
+.pricing {
+  font-size: 0.85rem;
+  color: var(--ion-color-medium);
+}
